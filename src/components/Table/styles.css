@@ -1,0 +1,35 @@
+.table {
+  width: 1300px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  font-size: 16px;
+  font-weight: bold;
+}
+.title {
+  border: 1px solid black;
+  width: 80px;
+  height: 40px;
+}
+
+.table__input {
+  border: 1px solid black;
+  width: 80px;
+  height: 45px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.total {
+  border: 1px solid black;
+  max-width: 80px;
+  height: 45px;
+  text-align: center;
+  color: red;
+}
+span {
+  border-bottom: 2px solid red;
+}
