@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import './styles.css'
 
 const months = [
@@ -12,14 +13,25 @@ const months = [
   { id: 8, label: 'Июнь' },
   { id: 9, label: 'Авг' },
   { id: 10, label: 'Сен' },
-  { id: 14, label: 'Окт' },
-  { id: 11, label: 'Нояб' },
-  { id: 12, label: 'Дек' },
-  { id: 13, label: 'Итого по магазину' },
+  { id: 11, label: 'Окт' },
+  { id: 12, label: 'Нояб' },
+  { id: 13, label: 'Дек' },
+  { id: 14, label: 'Итого по магазину' },
 ]
 
-const Table = ({ data }) => {
-  const [budgets, setBudgets] = useState(data)
+const Table = () => {
+  const [budgets, setBudgets] = useState([])
+
+  useEffect(() => {
+    try {
+      axios.get('http://localhost:8080/data').then((response) => {
+        const data = response.data
+        setBudgets(data)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   const handleBudgetChange = (storeIndex, monthIndex, value) => {
     const newBudgets = [...budgets]
@@ -71,8 +83,7 @@ const Table = ({ data }) => {
                         storeIndex,
                         monthIndex,
                         parseInt(e.target.value)
-                      )}
-                  />
+                      )}/>
                 </td>
               ))}
               <td className="total">{getTotalByStore(storeIndex)}</td>
@@ -80,11 +91,12 @@ const Table = ({ data }) => {
           ))}
           <tr>
             <td className="title">Итого по месяцу</td>
-            {budgets[0].months.map((month, monthIndex) => (
-              <td className="total" key={month.id}>
-                {getTotalByMonth(monthIndex)}
-              </td>
-            ))}
+            {budgets.length > 0 &&
+              budgets[0].months.map((month, monthIndex) => (
+                <td className="total" key={month.id}>
+                  {getTotalByMonth(monthIndex)}
+                </td>
+              ))}
             <td className="total">
               <span>{calculateTotalOverall()}</span>
             </td>

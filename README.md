@@ -2,4 +2,6 @@
 
 In the project directory, you can run:
 
-### `npm start`
+### 1 `npx json-server --watch ./public/db.json --port=8080`
+
+### 2 `npm start`
